@@ -1,7 +1,7 @@
 # Guia de Utilização: Módulo Nextcloud-SaaS para WHMCS
 
-**Versão do Módulo:** 2.4.5
-**Versão do manage.sh:** 10.0
+**Versão do Módulo:** 3.1.7
+**Versão do manage.sh:** 11.x (v11.3+)
 
 Este documento detalha a função de cada um dos **Module Commands** disponíveis na área de administração do WHMCS para um serviço que utiliza o módulo Nextcloud-SaaS. Estes botões permitem ao administrador gerir o ciclo de vida completo e realizar operações de manutenção numa instância Nextcloud diretamente a partir do WHMCS.
 

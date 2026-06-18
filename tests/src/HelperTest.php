@@ -61,7 +61,7 @@ final class HelperTest extends TestCase
         );
     }
 
-public function test_getSharedHostnames_returns_three_public_endpoints(): void
+    public function test_getSharedHostnames_returns_three_public_endpoints(): void
     {
         $hostnames = Helper::getSharedHostnames();
 
@@ -96,5 +96,77 @@ public function test_getSharedHostnames_returns_three_public_endpoints(): void
             Helper::CONTAINER_SUFFIXES,
             'Cada cliente deve ter exatamente 3 containers dedicados (app, cron, harp).'
         );
+    }
+
+    public function test_isValidDomain_accepts_valid_hostnames(): void
+    {
+        $this->assertTrue(Helper::isValidDomain('cloud.example.com'));
+        $this->assertTrue(Helper::isValidDomain('next-jaguar.defensys.seg.br'));
+    }
+
+    public function test_isValidDomain_rejects_invalid_hostnames(): void
+    {
+        $this->assertFalse(Helper::isValidDomain(''));
+        $this->assertFalse(Helper::isValidDomain('not a domain'));
+        $this->assertFalse(Helper::isValidDomain('-bad.example.com'));
+    }
+
+    public function test_getDomain_uses_params_domain_and_normalizes(): void
+    {
+        $domain = Helper::getDomain(['domain' => 'HTTPS://WWW.Cloud.Example.COM/']);
+        $this->assertSame('cloud.example.com', $domain);
+    }
+
+    public function test_getDomain_falls_back_to_customfields(): void
+    {
+        $params = [
+            'customfields' => [
+                'Domínio da Instância' => 'nc.cliente.com.br',
+            ],
+        ];
+        $this->assertSame('nc.cliente.com.br', Helper::getDomain($params));
+    }
+
+    public function test_getDomain_returns_empty_when_missing(): void
+    {
+        $this->assertSame('', Helper::getDomain([]));
+    }
+
+    public function test_parseCredentials_extracts_nextcloud_section(): void
+    {
+        $content = <<<TXT
+Nextcloud:
+  URL: https://cloud.example.com
+  Usuário: admin
+  Senha: SecretPass123
+TXT;
+        $creds = Helper::parseCredentials($content);
+        $this->assertSame('https://cloud.example.com', $creds['nextcloud_url']);
+        $this->assertSame('admin', $creds['nextcloud_user']);
+        $this->assertSame('SecretPass123', $creds['nextcloud_pass']);
+    }
+
+    public function test_parseManageOutput_extracts_key_value_pairs(): void
+    {
+        $output = "URL: https://example.com\nSTATUS=running\n# comment\n";
+        $parsed = Helper::parseManageOutput($output);
+        $this->assertSame('https://example.com', $parsed['url']);
+        $this->assertSame('running', $parsed['STATUS']);
+    }
+
+    public function test_getContainerNames_builds_three_container_names(): void
+    {
+        $names = Helper::getContainerNames('acme');
+        $this->assertSame([
+            'app' => 'acme-app',
+            'cron' => 'acme-cron',
+            'harp' => 'acme-harp',
+        ], $names);
+    }
+
+    public function test_formatQuota_formats_bytes_and_unlimited(): void
+    {
+        $this->assertSame('Ilimitado', Helper::formatQuota(0));
+        $this->assertSame('1 GB', Helper::formatQuota(1024 * 1024 * 1024));
     }
 }

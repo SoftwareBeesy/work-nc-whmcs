@@ -1,0 +1,37 @@
+---
+description: PHP WHMCS server module patterns — nextcloudsaas
+globs: ["modules/servers/nextcloudsaas/**/*.php", "includes/hooks/**/*.php", "tests/**/*.php"]
+alwaysApply: false
+---
+
+# PHP WHMCS Module — nextcloudsaas
+
+## File layout
+- `nextcloudsaas.php`: WHMCS callbacks only (`nextcloudsaas_MetaData`, `CreateAccount`, admin buttons)
+- `lib/Helper.php`: pure utilities, DNS, parsing, constants (`CONTAINER_SUFFIXES`, `SHARED_CONTAINERS`)
+- `lib/SSHManager.php`: SSH + `manage.sh` + docker/occ — single remote integration point
+- `lib/NextcloudAPI.php`: OCS HTTP client (cURL); fallback to SSH occ when SSL not ready
+- `includes/hooks/nextcloudsaas_hooks.php`: cron DNS, checkout, AcceptOrder, emails
+
+## Patterns
+- Namespace `NextcloudSaaS` for lib classes; WHMCS callbacks stay global functions
+- SSH commands: wrap with `sudo -n`; never interpolate raw user input into shell
+- `fromWhmcsParams()` for SSHManager construction — do not duplicate server config parsing
+- Custom field lookup: use `nextcloudsaas_findDomainCustomField()` in hooks (v3.1.7 cascade)
+- After successful provision: call `nextcloudsaas_acceptOrderForService()` to close Pending orders
+
+## Architecture constants (v11.x contract)
+- 3 dedicated containers per client: `app`, `cron`, `harp`
+- 8 shared services: `shared-db`, `shared-redis`, `shared-collabora`, `shared-turn`, `shared-nats`, `shared-janus`, `shared-signaling`, `shared-recording`
+- 1 DNS A record per client (main domain only)
+
+## Testing
+- Tests live in `tests/` with separate `composer.json` — never require full WHMCS bootstrap
+- `tests/bootstrap.php` provides Capsule stub; extend stubs before adding DB-dependent tests
+- Helper contract tests must stay fast and offline (no SSH, no DNS network unless mocked)
+
+## Anti-patterns
+- Do not add Laravel/Symfony dependencies to the module vendor
+- Do not expose HaRP shared key in `clientarea.tpl`
+- Do not treat `.env` alone as fully provisioned instance (`instanceExists` requires `.credentials` + `app` container)
+- Do not hardcode Collabora/TURN hostnames per client — use `Helper::getSharedHostnames()`
