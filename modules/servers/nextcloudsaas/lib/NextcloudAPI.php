@@ -69,7 +69,7 @@ class NextcloudAPI
      * @return array Resposta parseada da API
      * @throws \Exception Em caso de erro de comunicação
      */
-    private function request($method, $endpoint, $data = [])
+    protected function request($method, $endpoint, $data = [])
     {
         $url = $this->baseUrl . '/ocs/v1.php' . $endpoint;
 

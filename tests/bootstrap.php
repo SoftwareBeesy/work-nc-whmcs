@@ -37,3 +37,4 @@ if (file_exists($autoload)) {
 // 4. Carregar classes do módulo a testar.
 require_once __DIR__ . '/../modules/servers/nextcloudsaas/lib/Helper.php';
 require_once __DIR__ . '/../modules/servers/nextcloudsaas/lib/SSHManager.php';
+require_once __DIR__ . '/../modules/servers/nextcloudsaas/lib/NextcloudAPI.php';
