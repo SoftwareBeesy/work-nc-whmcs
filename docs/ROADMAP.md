@@ -9,6 +9,7 @@ index:
     - N1
     - N2
     - N3
+    - N4
 ---
 
 # Roadmap Técnico — work-nc-whmcs
@@ -24,10 +25,10 @@ index:
 
 | Métrica | Valor |
 |---------|-------|
-| Total de tarefas | 11 |
-| Total de sprints | 3 |
-| Tarefas P | 4 |
-| Tarefas M | 7 |
+| Total de tarefas | 16 |
+| Total de sprints | 4 |
+| Tarefas P | 6 |
+| Tarefas M | 10 |
 | Tarefas G | 0 |
 
 ---
@@ -39,6 +40,7 @@ index:
 | N1 | N | PHPUnit verde com ≥15 casos Helper | concluída | 3 | tests, Helper | Expandir testes Helper | 40-95 |
 | N2 | N | USAGE/README alinhados v3.1.7 | concluída | 3 | docs | Sync documentação operacional | 98-130 |
 | N3 | N | PHPUnit ≥25 testes (Helper config + SSHManager stub) | concluída | 5 | tests, SSHManager | Testes SSHManager instanceExists | 132-175 |
+| N4 | N | PHPUnit ≥32 testes (NextcloudAPI OCS stub) | concluída | 5 | tests, NextcloudAPI | Testes OCS createUser/getUser/password | 177-220 |
 
 ---
 
@@ -51,13 +53,14 @@ index:
 | N1 | skip | Testes + contrato Helper |
 | N2 | skip | Docs only |
 | N3 | skip | Testes com stub SSH |
+| N4 | skip | Testes com stub OCS |
 
 ---
 
 ## Grafo de Dependências
 
 ```
-[Helper tests N1] ──► [Docs sync N2] ──► [SSHManager tests N3]
+[Helper tests N1] ──► [Docs sync N2] ──► [SSHManager tests N3] ──► [NextcloudAPI tests N4]
 ```
 
 ---
@@ -130,9 +133,49 @@ index:
 
 ---
 
+## Sprint N4 — PHPUnit NextcloudAPI OCS stub
+
+> Categoria: N  
+> Gate: `cd tests && ./vendor/bin/phpunit` passa com ≥32 testes; `testConnection`, `createUser`, `getUser`, `changeUserPassword`, `getUserStorageInfo` cobertos com stub HTTP  
+> review: skip  
+> Status: concluída
+
+| Status | Tamanho | Tarefa | Skill/Command | Depende de |
+|--------|---------|--------|---------------|------------|
+| [x] | M | N4.1 — `request` protected + TestableNextcloudAPI + bootstrap | `php-whmcs-module` | N3 |
+| [x] | M | N4.2 — Testes `testConnection` (success + OCS fail + cURL error) | `php-whmcs-module` | N4.1 |
+| [x] | M | N4.3 — Testes `createUser` + `getUser` (success + OCS error) | `php-whmcs-module` | N4.1 |
+| [x] | M | N4.4 — Testes `changeUserPassword`, `setUserQuota`, `getUserStorageInfo` | `php-whmcs-module` | N4.1 |
+| [x] | P | N4.5 — Atualizar ROADMAP status + CHANGELOG | `/dev doc` | N4.4 |
+
+**Notas técnicas N4.1:**
+
+<details>
+<summary>N4.1 — Seam de teste para OCS</summary>
+
+- **Arquivo(s)**: `modules/servers/nextcloudsaas/lib/NextcloudAPI.php`, `tests/src/Stub/TestableNextcloudAPI.php`, `tests/bootstrap.php`
+- **Abordagem**: Alterar `request()` de `private` para `protected` (sem mudança de comportamento); stub injeta JSON OCS sem cURL real
+- **Edge cases**: resposta JSON inválida, statuscode ≠ 100, exceção de rede simulada
+- **executor_prompt**: Add TestableNextcloudAPI extending NextcloudAPI overriding protected request(). Load NextcloudAPI in bootstrap. Mirror TestableSSHManager pattern from N3.
+</details>
+
+**Notas técnicas N4.2:**
+
+<details>
+<summary>N4.2 — testConnection</summary>
+
+- **Arquivo(s)**: `tests/src/NextcloudAPITest.php`
+- **Abordagem**: Mock capabilities response com `version.string`; assert success message contains version; OCS 997 → success false
+- **executor_prompt**: Test testConnection() with stubbed OCS capabilities JSON (statuscode 100) and failure paths.
+</details>
+
+---
+
 ## Histórico
 
 | Data | Alteração |
 |------|-----------|
 | 2026-06-18 | Roadmap inicial — sprints N1 (testes) e N2 (docs) via Rock campanha setup-beesy |
 | 2026-06-18 | Sprint N3 — SSHManager stub tests + Helper config/quota (26 testes) |
+| 2026-06-18 | Sprint N4 planejada — NextcloudAPI OCS stub tests (gate ≥32) |
+| 2026-06-18 | Sprint N4 — NextcloudAPI OCS stub tests (38 testes) |
