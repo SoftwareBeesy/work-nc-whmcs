@@ -1,0 +1,34 @@
+---
+description: General project rules — Nextcloud SaaS WHMCS module (always applied)
+alwaysApply: true
+---
+
+# work-nc-whmcs — General Rules
+
+## Stack
+- Platform: WHMCS server module (PHP)
+- Remote: Nextcloud SaaS Manager `manage.sh` v11.x via SSH (phpseclib3)
+- Database: MariaDB/MySQL (WHMCS native — no module migrations)
+- Tests: PHPUnit 10.5 in `tests/` (isolated vendor)
+- CI: GitHub Actions `validation-gate` (php-whmcs stack)
+
+## Language and style
+- Code: English (variables, functions, comments)
+- User communication: Brazilian Portuguese
+- Commits: Conventional Commits in English (`feat:`, `fix:`, `docs:`, `test:`)
+
+## Principles
+- Minimize diff scope — WHMCS module callbacks are global functions; do not rename `nextcloudsaas_*`
+- Functions max ~30 lines; extract helpers in `lib/` when needed
+- Errors explicit — never empty catch; log via `Helper::log()` for module diagnostics
+- Security: never log passwords; HaRP shared key admin-only (v3.1.7+)
+
+## WHMCS constraints
+- Deploy paths: `modules/servers/nextcloudsaas/` + `includes/hooks/nextcloudsaas_hooks.php`
+- Domain resolution: always use `Helper::getDomain()` — never assume `$params['domain']` alone
+- Idempotent `CreateAccount`: check `SSHManager::instanceExists()` before `manage.sh create`
+
+## PMO
+- Present a brief plan before coding multi-file changes
+- Ask before modifying more than 5 files in one task
+- Never remove code without explaining why

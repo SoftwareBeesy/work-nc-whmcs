@@ -1,0 +1,42 @@
+[
+  {
+    "file": "REQUIREMENTS.md",
+    "title": "Requisitos",
+    "description": "Baseline funcional v3.1.7 — features, stakeholders e integrações"
+  },
+  {
+    "file": "ARCHITECTURE.md",
+    "title": "Arquitetura",
+    "description": "Stack php-whmcs, módulos, ADRs e decisões técnicas por componente"
+  },
+  {
+    "file": "DATABASE.md",
+    "title": "Database",
+    "description": "Modelo WHMCS, custom fields, metadados notes e dados remotos SSH"
+  },
+  {
+    "file": "ROADMAP.md",
+    "title": "Roadmap",
+    "description": "Sprints de melhoria Beesy — testes e documentação"
+  },
+  {
+    "file": "../integration-contracts.yaml",
+    "title": "Contratos",
+    "description": "WHMCS callbacks, manage.sh CLI e OCS API"
+  },
+  {
+    "file": "../CHANGELOG.md",
+    "title": "Changelog",
+    "description": "Histórico de releases do módulo Nextcloud SaaS WHMCS"
+  },
+  {
+    "file": "../README.md",
+    "title": "README",
+    "description": "Instalação, configuração e operação do módulo"
+  },
+  {
+    "file": "../USAGE.md",
+    "title": "Guia de Utilização",
+    "description": "Module Commands e ciclo de vida no painel admin"
+  }
+]

@@ -1,0 +1,109 @@
+# Beesy Validation Gate — the AUTHORITY for sprint quality (Decision #222).
+#
+# Re-runs the FULL-SCOPE analyzer from committed artifacts on every PR. This is
+# the only enforcement that cannot be forged locally: the agent's local
+# validation_gate is a pre-check; THIS job is what gates the merge.
+#
+# REQUIRED human step (one-time, the agent cannot do it): in repo Settings →
+# Branches → add a protection rule for the default branch with
+# "Require status checks to pass" → select "validation-gate". Without that, this
+# job is advisory and the gate is NOT enforced.
+#
+# Installed by ci-automations-sync.sh as .github/workflows/beesy-validation-gate.yml.
+#
+# DB/integration test suites are NOT run here — they require project-specific infra
+# (Postgres, Redis, migrations). When REAL_CI_PRESENT (FW-202), the project CI is the
+# authority for those suites; this gate runs only deterministic, infra-free static
+# analyzers (FW-201).
+name: validation-gate
+
+on:
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: validation-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validation-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect stack
+        id: stack
+        run: |
+          if [ -f composer.json ] && grep -q 'laravel/framework' composer.json; then
+            echo "stack=laravel" >> "$GITHUB_OUTPUT"
+          elif [ -f package.json ]; then
+            echo "stack=node" >> "$GITHUB_OUTPUT"
+          elif [ -f pyproject.toml ] || [ -f requirements.txt ]; then
+            echo "stack=python" >> "$GITHUB_OUTPUT"
+          elif [ -f tests/phpunit.xml.dist ] || [ -f modules/servers/nextcloudsaas/nextcloudsaas.php ]; then
+            echo "stack=php-whmcs" >> "$GITHUB_OUTPUT"
+          else
+            echo "stack=unknown" >> "$GITHUB_OUTPUT"
+          fi
+
+      # --- Laravel: full-scope PHPStan + Pint (NO {files} — full scope is non-forgeable) ---
+      - name: Setup PHP
+        if: steps.stack.outputs.stack == 'laravel'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Laravel validation
+        if: steps.stack.outputs.stack == 'laravel'
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          php -d memory_limit=1G ./vendor/bin/phpstan analyse --no-progress
+          ./vendor/bin/pint --test
+
+      # --- Node (NestJS/Next.js/RN) ---
+      - name: Setup Node
+        if: steps.stack.outputs.stack == 'node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Node validation
+        if: steps.stack.outputs.stack == 'node'
+        run: |
+          npm ci
+          npx tsc --noEmit
+          npx eslint .
+
+      # --- Python ---
+      - name: Setup Python
+        if: steps.stack.outputs.stack == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Python validation
+        if: steps.stack.outputs.stack == 'python'
+        run: |
+          pip install -r requirements.txt 2>/dev/null || pip install -e .
+          ruff check .
+
+      # --- WHMCS server module (PHP without root composer.json) ---
+      - name: Setup PHP
+        if: steps.stack.outputs.stack == 'php-whmcs'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+      - name: WHMCS module validation
+        if: steps.stack.outputs.stack == 'php-whmcs'
+        run: |
+          find . -name '*.php' ! -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
+          cd tests
+          composer install --no-interaction --prefer-dist --no-progress
+          ./vendor/bin/phpunit
+
+      - name: No stack detected
+        if: steps.stack.outputs.stack == 'unknown'
+        run: |
+          echo "::error::validation-gate could not detect a supported stack — configure this workflow for your project."
+          exit 1

@@ -193,8 +193,8 @@ O módulo lê o domínio da instância a partir do Custom Field **"Domínio da I
 ### 3.1. Ciclo de Vida do Serviço
 
 -   **CreateAccount:** Verifica primeiro se os 3 registros DNS estão corretos (apontando para o IP do servidor configurado no WHMCS). Se OK, executa `manage.sh <cliente> <dominio> create`. Cria a instância completa, lê o ficheiro `.credentials` gerado, guarda a password do admin no WHMCS, e define a quota padrão para todos os utilizadores. Se DNS não está OK, retorna mensagem informativa e o cron automático continuará verificando.
--   **SuspendAccount:** Executa `manage.sh <cliente> _ stop`. Para todos os 10 containers da instância.
--   **UnsuspendAccount:** Executa `manage.sh <cliente> _ start`. Inicia todos os 10 containers da instância.
+-   **SuspendAccount:** Executa `manage.sh <cliente> _ stop`. Para os 3 containers dedicados da instância (`app`, `cron`, `harp`).
+-   **UnsuspendAccount:** Executa `manage.sh <cliente> _ start`. Inicia os 3 containers dedicados.
 -   **TerminateAccount:** Executa `manage.sh <cliente> _ backup` e depois `manage.sh <cliente> _ remove`. Faz um backup completo antes de apagar permanentemente a instância (containers, volumes e dados).
 -   **Renew:** Verifica se a instância está ativa e reinicia se necessário.
 -   **ChangePackage:** Altera a quota do utilizador `admin` e a quota padrão para novos utilizadores via `occ`.

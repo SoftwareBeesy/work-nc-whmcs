@@ -2,6 +2,17 @@
 
 Todas as mudanças notáveis deste módulo seguem [Keep a Changelog](https://keepachangelog.com/pt-BR/) e [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [Unreleased]
+
+### Adicionado
+- Artefatos Beesy: `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/ROADMAP.md`, `docs/integration-contracts.yaml`, `docs/db-schema.dbml`, hub `docs/sistema/`.
+- Rules e skill do projeto: `.cursor/rules/general.mdc`, `.cursor/rules/php-whmcs-module.mdc`, `.cursor/skills/php-whmcs-module/`.
+- PHPUnit: 9 novos casos em `HelperTest` (15 testes totais) — `getDomain`, `isValidDomain`, `parseCredentials`, `parseManageOutput`, `getContainerNames`, `formatQuota`.
+
+### Documentado
+- `USAGE.md` alinhado à v3.1.7 e manage.sh v11.x.
+- `README.md` §3.1: Suspend/Unsuspend referem 3 containers dedicados (não 10).
+
 ## v3.1.7 (2026-05-04)
 
 ### Removido
