@@ -14,3 +14,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# Beesy session (local state)
+.cursorsession

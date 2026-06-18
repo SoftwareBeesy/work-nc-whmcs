@@ -1,0 +1,52 @@
+{
+  "_meta": {
+    "generated_at": "2026-06-18T14:40:00Z",
+    "git_head": "9985dbb",
+    "generator": "pre-flight-discovery v1"
+  },
+  "stack": {
+    "language": "PHP",
+    "framework": "WHMCS Server Module",
+    "runtime_version": null,
+    "package_manager": "composer"
+  },
+  "docs": {
+    "found": ["README.md", "CHANGELOG.md", "USAGE.md"],
+    "has_readme": true,
+    "has_architecture": false,
+    "has_requirements": false
+  },
+  "code": {
+    "main_dirs": [
+      "modules/servers/nextcloudsaas/",
+      "includes/hooks/",
+      "tests/"
+    ],
+    "approximate_loc": 6164,
+    "test_dirs": ["tests/"]
+  },
+  "tests": {
+    "configured": true,
+    "framework": "phpunit",
+    "has_ci_run": true
+  },
+  "cicd": {
+    "provider": "github-actions",
+    "workflows": [
+      ".github/workflows/beesy-daily-digest.yml",
+      ".github/workflows/beesy-fix-ci-failures.yml",
+      ".github/workflows/beesy-pr-auto-assign.yml",
+      ".github/workflows/beesy-pr-security-review.yml",
+      ".github/workflows/beesy-test-coverage.yml",
+      ".github/workflows/beesy-validation-gate.yml"
+    ]
+  },
+  "dependencies": {
+    "key": ["phpseclib/phpseclib"]
+  },
+  "activity": {
+    "last_commit_days": 34,
+    "commits_last_30d": 0,
+    "active_branches": 6
+  }
+}
