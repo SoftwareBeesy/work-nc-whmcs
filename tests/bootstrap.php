@@ -34,5 +34,6 @@ if (file_exists($autoload)) {
     require_once $autoload;
 }
 
-// 4. Carregar o Helper do módulo a testar.
+// 4. Carregar classes do módulo a testar.
 require_once __DIR__ . '/../modules/servers/nextcloudsaas/lib/Helper.php';
+require_once __DIR__ . '/../modules/servers/nextcloudsaas/lib/SSHManager.php';

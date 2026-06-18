@@ -8,6 +8,7 @@ index:
   sprints:
     - N1
     - N2
+    - N3
 ---
 
 # Roadmap Técnico — work-nc-whmcs
@@ -23,10 +24,10 @@ index:
 
 | Métrica | Valor |
 |---------|-------|
-| Total de tarefas | 6 |
-| Total de sprints | 2 |
-| Tarefas P | 3 |
-| Tarefas M | 3 |
+| Total de tarefas | 11 |
+| Total de sprints | 3 |
+| Tarefas P | 4 |
+| Tarefas M | 7 |
 | Tarefas G | 0 |
 
 ---
@@ -37,6 +38,7 @@ index:
 |--------|-----------|---------------|--------|-------|---------|--------|--------|
 | N1 | N | PHPUnit verde com ≥15 casos Helper | concluída | 3 | tests, Helper | Expandir testes Helper | 40-95 |
 | N2 | N | USAGE/README alinhados v3.1.7 | concluída | 3 | docs | Sync documentação operacional | 98-130 |
+| N3 | N | PHPUnit ≥25 testes (Helper config + SSHManager stub) | concluída | 5 | tests, SSHManager | Testes SSHManager instanceExists | 132-175 |
 
 ---
 
@@ -48,13 +50,14 @@ index:
 |--------|--------|--------|
 | N1 | skip | Testes + contrato Helper |
 | N2 | skip | Docs only |
+| N3 | skip | Testes com stub SSH |
 
 ---
 
 ## Grafo de Dependências
 
 ```
-[Helper tests N1] ──► [Docs sync N2]
+[Helper tests N1] ──► [Docs sync N2] ──► [SSHManager tests N3]
 ```
 
 ---
@@ -64,7 +67,7 @@ index:
 > Categoria: N  
 > Gate: `cd tests && ./vendor/bin/phpunit` passa com ≥15 testes; cobre getDomain, isValidDomain, parseCredentials, parseManageOutput, getContainerNames  
 > review: skip  
-> Status: em execução
+> Status: concluída
 
 | Status | Tamanho | Tarefa | Skill/Command | Depende de |
 |--------|---------|--------|---------------|------------|
@@ -100,7 +103,7 @@ index:
 > Categoria: N  
 > Gate: USAGE.md referencia v3.1.7 e arquitetura 3+8 containers; README §3 sem menção a 10 containers  
 > review: skip  
-> Status: pendente
+> Status: concluída
 
 | Status | Tamanho | Tarefa | Skill/Command | Depende de |
 |--------|---------|--------|---------------|------------|
@@ -110,8 +113,26 @@ index:
 
 ---
 
+## Sprint N3 — PHPUnit SSHManager + Helper config
+
+> Categoria: N  
+> Gate: `cd tests && ./vendor/bin/phpunit` passa com ≥25 testes; SSHManager `instanceExists` coberto com stub  
+> review: skip  
+> Status: concluída
+
+| Status | Tamanho | Tarefa | Skill/Command | Depende de |
+|--------|---------|--------|---------------|------------|
+| [x] | P | N3.1 — Testes formatQuotaForNextcloud + getServerConfig/getProductConfig | `php-whmcs-module` | N1 |
+| [x] | M | N3.2 — TestableSSHManager stub + bootstrap SSHManager | `php-whmcs-module` | — |
+| [x] | M | N3.3 — Testes porta SSH fallback (0→22) | `php-whmcs-module` | N3.2 |
+| [x] | M | N3.4 — Testes instanceExists (exists/partial/missing) | `php-whmcs-module` | N3.2 |
+| [x] | P | N3.5 — Atualizar ROADMAP + CHANGELOG | `/dev doc` | N3.4 |
+
+---
+
 ## Histórico
 
 | Data | Alteração |
 |------|-----------|
 | 2026-06-18 | Roadmap inicial — sprints N1 (testes) e N2 (docs) via Rock campanha setup-beesy |
+| 2026-06-18 | Sprint N3 — SSHManager stub tests + Helper config/quota (26 testes) |
