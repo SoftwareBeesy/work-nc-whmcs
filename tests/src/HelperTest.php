@@ -169,4 +169,49 @@ TXT;
         $this->assertSame('Ilimitado', Helper::formatQuota(0));
         $this->assertSame('1 GB', Helper::formatQuota(1024 * 1024 * 1024));
     }
+
+    public function test_formatQuotaForNextcloud_appends_gb_to_numeric_quota(): void
+    {
+        $this->assertSame('50 GB', Helper::formatQuotaForNextcloud('50'));
+    }
+
+    public function test_formatQuotaForNextcloud_preserves_unit_suffix(): void
+    {
+        $this->assertSame('10 GB', Helper::formatQuotaForNextcloud('10 GB'));
+    }
+
+    public function test_formatQuotaForNextcloud_maps_unlimited_aliases_to_none(): void
+    {
+        $this->assertSame('none', Helper::formatQuotaForNextcloud('ilimitado'));
+        $this->assertSame('none', Helper::formatQuotaForNextcloud('unlimited'));
+    }
+
+    public function test_formatQuotaForNextcloud_treats_zero_as_numeric_gb(): void
+    {
+        // is_numeric('0') runs before unlimited aliases in Helper implementation.
+        $this->assertSame('0 GB', Helper::formatQuotaForNextcloud('0'));
+    }
+
+    public function test_getServerConfig_maps_whmcs_params(): void
+    {
+        $cfg = Helper::getServerConfig([
+            'serverhostname' => 'nc.host',
+            'serverip'       => '198.51.100.2',
+            'serverusername' => 'admin',
+            'serverpassword' => 'pw',
+            'serverport'     => 2222,
+        ]);
+
+        $this->assertSame('198.51.100.2', $cfg['ip']);
+        $this->assertSame('admin', $cfg['username']);
+        $this->assertSame(2222, $cfg['port']);
+    }
+
+    public function test_getProductConfig_applies_defaults(): void
+    {
+        $cfg = Helper::getProductConfig([]);
+        $this->assertSame('10', $cfg['disk_quota_gb']);
+        $this->assertSame('5', $cfg['max_users']);
+        $this->assertSame('on', $cfg['enable_collabora']);
+    }
 }

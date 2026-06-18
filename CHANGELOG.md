@@ -8,6 +8,7 @@ Todas as mudanças notáveis deste módulo seguem [Keep a Changelog](https://kee
 - Artefatos Beesy: `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/ROADMAP.md`, `docs/integration-contracts.yaml`, `docs/db-schema.dbml`, hub `docs/sistema/`.
 - Rules e skill do projeto: `.cursor/rules/general.mdc`, `.cursor/rules/php-whmcs-module.mdc`, `.cursor/skills/php-whmcs-module/`.
 - PHPUnit: 9 novos casos em `HelperTest` (15 testes totais) — `getDomain`, `isValidDomain`, `parseCredentials`, `parseManageOutput`, `getContainerNames`, `formatQuota`.
+- PHPUnit Sprint N3: `SSHManagerTest` (porta 22 fallback, `instanceExists` exists/partial/missing) + `TestableSSHManager` stub; Helper config/quota (+11 casos, **26 testes** totais).
 
 ### Documentado
 - `USAGE.md` alinhado à v3.1.7 e manage.sh v11.x.
