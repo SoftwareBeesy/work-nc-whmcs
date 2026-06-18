@@ -43,6 +43,8 @@ jobs:
             echo "stack=node" >> "$GITHUB_OUTPUT"
           elif [ -f pyproject.toml ] || [ -f requirements.txt ]; then
             echo "stack=python" >> "$GITHUB_OUTPUT"
+          elif [ -f tests/phpunit.xml.dist ] || [ -f modules/servers/nextcloudsaas/nextcloudsaas.php ]; then
+            echo "stack=php-whmcs" >> "$GITHUB_OUTPUT"
           else
             echo "stack=unknown" >> "$GITHUB_OUTPUT"
           fi
@@ -84,6 +86,21 @@ jobs:
         run: |
           pip install -r requirements.txt 2>/dev/null || pip install -e .
           ruff check .
+
+      # --- WHMCS server module (PHP without root composer.json) ---
+      - name: Setup PHP
+        if: steps.stack.outputs.stack == 'php-whmcs'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+      - name: WHMCS module validation
+        if: steps.stack.outputs.stack == 'php-whmcs'
+        run: |
+          find . -name '*.php' ! -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
+          cd tests
+          composer install --no-interaction --prefer-dist --no-progress
+          ./vendor/bin/phpunit
 
       - name: No stack detected
         if: steps.stack.outputs.stack == 'unknown'
