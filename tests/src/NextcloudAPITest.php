@@ -157,6 +157,94 @@ final class NextcloudAPITest extends TestCase
         $this->assertSame('User not found', $result['message']);
     }
 
+    public function test_disableUser_success(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsSuccess());
+
+        $result = $api->disableUser('acme');
+
+        $this->assertTrue($result['success']);
+        $this->assertStringContainsString('desabilitado', $result['message']);
+    }
+
+    public function test_disableUser_failure_on_ocs_error(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsFailure(997, 'User not found'));
+
+        $result = $api->disableUser('missing');
+
+        $this->assertFalse($result['success']);
+        $this->assertSame('User not found', $result['message']);
+    }
+
+    public function test_enableUser_success(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsSuccess());
+
+        $result = $api->enableUser('acme');
+
+        $this->assertTrue($result['success']);
+        $this->assertStringContainsString('habilitado', $result['message']);
+    }
+
+    public function test_deleteUser_success(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsSuccess());
+
+        $result = $api->deleteUser('acme');
+
+        $this->assertTrue($result['success']);
+        $this->assertStringContainsString('eliminado', $result['message']);
+    }
+
+    public function test_deleteUser_failure_on_ocs_error(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsFailure(101, 'Cannot delete admin'));
+
+        $result = $api->deleteUser('admin');
+
+        $this->assertFalse($result['success']);
+        $this->assertSame('Cannot delete admin', $result['message']);
+    }
+
+    public function test_createGroup_success(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsSuccess());
+
+        $result = $api->createGroup('team-sales');
+
+        $this->assertTrue($result['success']);
+        $this->assertStringContainsString('Grupo criado', $result['message']);
+    }
+
+    public function test_addUserToGroup_success(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsSuccess());
+
+        $result = $api->addUserToGroup('acme', 'team-sales');
+
+        $this->assertTrue($result['success']);
+        $this->assertStringContainsString('grupo', $result['message']);
+    }
+
+    public function test_listUsers_with_search_returns_data(): void
+    {
+        $api = $this->api();
+        $api->setMockResponse($this->ocsSuccess(['users' => ['acme', 'beta']]));
+
+        $result = $api->listUsers('ac', 10, 0);
+
+        $this->assertTrue($result['success']);
+        $this->assertSame(['acme', 'beta'], $result['data']['users']);
+    }
+
     private function api(): TestableNextcloudAPI
     {
         return new TestableNextcloudAPI('https://cloud.example.com', 'admin', 'secret');
