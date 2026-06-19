@@ -21,10 +21,15 @@ if (!function_exists('logActivity')) {
     }
 }
 
-// 2. Stub mínimo de \WHMCS\Database\Capsule (não testamos DB aqui).
+// 2. Stub de \WHMCS\Database\Capsule (configurável via MockCapsule::seed).
+require_once __DIR__ . '/src/Stub/MockQuery.php';
+require_once __DIR__ . '/src/Stub/MockCapsule.php';
+
 if (!class_exists('WHMCS\\Database\\Capsule')) {
     eval('namespace WHMCS\\Database; class Capsule {
-        public static function table($t) { return new \\NextcloudSaaS\\Tests\\Stub\\NullQuery(); }
+        public static function table($table) {
+            return \\NextcloudSaaS\\Tests\\Stub\\MockCapsule::table($table);
+        }
     }');
 }
 

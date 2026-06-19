@@ -273,7 +273,7 @@ O cliente tem acesso a um painel de controlo completo e moderno, que inclui:
 -   **v3.1.0 (2026-05-01):**
     -   Novo botão admin **“Listar Instâncias do Servidor”** (`listAllInstances`): dashboard HTML consolidado com todas as instâncias provisionadas no servidor, estado dos 3 containers dedicados (`app`, `cron`, `harp`) e uso de disco por instância.
     -   Novo botão admin **“Ver Logs Talk Recording”** (`viewRecordingLogs`): mostra `docker logs --tail 100 shared-recording` no painel admin.
-    -   **CI/CD GitHub Actions**: workflow `ci.yml` faz `php -l` em todos os ficheiros PHP em PRs/pushes para `main`/`develop`; workflow `release.yml` empacota o ZIP e publica automáticamente no GitHub Release a cada tag `vX.Y.Z` (com validação de que `whmcs.json::version` bate com a tag).
+    -   **CI/CD GitHub Actions**: workflow `ci.yml` faz `php -l` em todos os ficheiros PHP em PRs/pushes para `main`/`develop`; workflow `release.yml` empacota o ZIP e publica automáticamente no GitHub Release a cada tag `vX.Y.Z` (com validação de que `whmcs.json::version` bate com a tag). Robôs Beesy (`beesy-validation-gate.yml`, `beesy-test-coverage.yml`, `beesy-pr-security-review.yml`) validam PRs — o security review Merlin é **opcional** e só corre quando `ANTHROPIC_API_KEY` está configurado nos Secrets do repositório.
     -   **Suite PHPUnit inicial** em `tests/` (PHPUnit 10.5) validando o contrato público do `Helper`: 1 DNS por cliente, 3 sufixos de container dedicado, 8 serviços globais `shared-*`, hostnames globais independentes do domínio do cliente. 6 testes / 17 assertions.
 -   **v3.0.0 (2026-05-01):**
     -   **BREAKING:** Alinhado ao Nextcloud SaaS Manager v11.x (arquitetura compartilhada).

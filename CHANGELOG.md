@@ -10,6 +10,9 @@ Todas as mudanças notáveis deste módulo seguem [Keep a Changelog](https://kee
 - PHPUnit: 9 novos casos em `HelperTest` (15 testes totais) — `getDomain`, `isValidDomain`, `parseCredentials`, `parseManageOutput`, `getContainerNames`, `formatQuota`.
 - PHPUnit Sprint N3: `SSHManagerTest` (porta 22 fallback, `instanceExists` exists/partial/missing) + `TestableSSHManager` stub; Helper config/quota (+11 casos, **26 testes** totais).
 - PHPUnit Sprint N4: `NextcloudAPITest` (testConnection, createUser, getUser, changeUserPassword, setUserQuota, getUserStorageInfo) + `TestableNextcloudAPI` stub; `request()` protected para seam de teste (**38 testes** totais).
+- PHPUnit Sprint N5: `MockCapsule`/`MockQuery` + testes `getDomain` DB fallback e `checkDnsRecords` (**42 testes**).
+- PHPUnit Sprint N6: OCS lifecycle (`disableUser`, `enableUser`, `deleteUser`, `createGroup`, `addUserToGroup`, `listUsers`) — **50 testes** totais.
+- CI Sprint F1: `beesy-pr-security-review.yml` — `merlin review` sem flag inválida; skip quando `ANTHROPIC_API_KEY` ausente.
 
 ### Documentado
 - `USAGE.md` alinhado à v3.1.7 e manage.sh v11.x.

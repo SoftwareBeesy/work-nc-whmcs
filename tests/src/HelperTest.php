@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace NextcloudSaaS\Tests;
 
 use NextcloudSaaS\Helper;
+use NextcloudSaaS\Tests\Stub\MockCapsule;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -11,6 +12,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class HelperTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        MockCapsule::reset();
+    }
+
     public function test_getRequiredDomains_returns_only_main_domain_in_shared_architecture(): void
     {
         $domain = 'cliente.example.com';
@@ -213,5 +219,90 @@ TXT;
         $this->assertSame('10', $cfg['disk_quota_gb']);
         $this->assertSame('5', $cfg['max_users']);
         $this->assertSame('on', $cfg['enable_collabora']);
+    }
+
+    public function test_getDomain_db_fallback_reads_custom_field_value(): void
+    {
+        MockCapsule::seed([
+            'tblcustomfields' => [
+                [
+                    'id'        => 5,
+                    'fieldname' => 'Domínio da Instância',
+                    'relid'     => 10,
+                    'type'      => 'product',
+                ],
+            ],
+            'tblcustomfieldsvalues' => [
+                [
+                    'fieldid' => 5,
+                    'relid'   => 1,
+                    'value'   => 'HTTPS://DB.Client.Example.COM/',
+                ],
+            ],
+        ]);
+
+        $domain = Helper::getDomain(['serviceid' => 1, 'pid' => 10]);
+
+        $this->assertSame('db.client.example.com', $domain);
+    }
+
+    public function test_getDomain_db_fallback_fuzzy_fieldname_match(): void
+    {
+        MockCapsule::seed([
+            'tblcustomfields' => [
+                [
+                    'id'        => 7,
+                    'fieldname' => 'Client Domain Host',
+                    'relid'     => 20,
+                    'type'      => 'product',
+                ],
+            ],
+            'tblcustomfieldsvalues' => [
+                [
+                    'fieldid' => 7,
+                    'relid'   => 2,
+                    'value'   => 'fuzzy.client.example.com',
+                ],
+            ],
+        ]);
+
+        $domain = Helper::getDomain(['serviceid' => 2, 'pid' => 20]);
+
+        $this->assertSame('fuzzy.client.example.com', $domain);
+    }
+
+    public function test_getDomain_db_returns_empty_when_field_does_not_match(): void
+    {
+        MockCapsule::seed([
+            'tblcustomfields' => [
+                [
+                    'id'        => 9,
+                    'fieldname' => 'Disk Quota',
+                    'relid'     => 30,
+                    'type'      => 'product',
+                ],
+            ],
+            'tblcustomfieldsvalues' => [
+                [
+                    'fieldid' => 9,
+                    'relid'   => 3,
+                    'value'   => '50',
+                ],
+            ],
+        ]);
+
+        $this->assertSame('', Helper::getDomain(['serviceid' => 3, 'pid' => 30]));
+    }
+
+    public function test_checkDnsRecords_reports_failure_for_unresolvable_hostname(): void
+    {
+        $hostname = 'definitely-missing-host-' . bin2hex(random_bytes(4)) . '.invalid';
+        $result = Helper::checkDnsRecords($hostname, '203.0.113.1');
+
+        $this->assertTrue($result['success']);
+        $this->assertFalse($result['all_ok']);
+        $this->assertArrayHasKey('nextcloud', $result['results']);
+        $this->assertFalse($result['results']['nextcloud']['correct']);
+        $this->assertStringContainsString('DNS incompleto', $result['message']);
     }
 }
