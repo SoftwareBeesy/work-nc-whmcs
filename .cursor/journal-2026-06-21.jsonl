@@ -1,0 +1,8 @@
+{"at": "2026-06-21T05:42:17Z", "tool": "Shell", "summary": "/usr/bin/git -C /home/beesy/Projetos/Cursor/work/work-nc-whmcs log --oneline -10...", "files": []}
+{"at": "2026-06-21T05:42:23Z", "tool": "Shell", "summary": "/usr/bin/git -C /home/beesy/Projetos/Cursor/work/work-nc-whmcs status -sb", "files": []}
+{"at": "2026-06-21T14:42:23Z", "tool": "Shell", "summary": "/usr/bin/php -l /home/beesy/Projetos/Cursor/work/work-nc-whmcs/modules/servers/n...", "files": []}
+{"at": "2026-06-21T14:42:30Z", "tool": "Shell", "summary": "cd /home/beesy/Projetos/Cursor/work/work-nc-whmcs && find . -name '*.php' ! -pat...", "files": []}
+{"at": "2026-06-21T14:42:42Z", "tool": "Shell", "summary": "rtk gh pr list --repo SoftwareBeesy/work-nc-whmcs --state merged --limit 3 2>/de...", "files": []}
+{"at": "2026-06-21T14:42:53Z", "tool": "Shell", "summary": "/usr/bin/git -C /home/beesy/Projetos/Cursor/work/work-nc-whmcs status --porcelai...", "files": []}
+{"at": "2026-06-21T14:43:16Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-21T14:43:21Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}

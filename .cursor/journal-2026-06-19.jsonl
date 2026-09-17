@@ -1,0 +1,41 @@
+{"at": "2026-06-19T12:02:14Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:16Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:17Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:18Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:20Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:24Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:25Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:02:27Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:02:28Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:02:30Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:02:34Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:30:40Z", "tool": "Shell", "summary": "/usr/bin/git -C /home/beesy/Projetos/Cursor/work/work-nc-whmcs checkout -b campa...", "files": []}
+{"at": "2026-06-19T12:30:48Z", "tool": "Write", "summary": "Wrote MockCapsule.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/Stub/MockCapsule.php"]}
+{"at": "2026-06-19T12:30:51Z", "tool": "Write", "summary": "Wrote MockQuery.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/Stub/MockQuery.php"]}
+{"at": "2026-06-19T12:30:53Z", "tool": "Write", "summary": "Wrote bootstrap.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/bootstrap.php"]}
+{"at": "2026-06-19T12:30:57Z", "tool": "Write", "summary": "Wrote HelperTest.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/HelperTest.php"]}
+{"at": "2026-06-19T12:31:03Z", "tool": "Write", "summary": "Wrote HelperTest.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/HelperTest.php"]}
+{"at": "2026-06-19T12:31:07Z", "tool": "Write", "summary": "Wrote HelperTest.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/HelperTest.php"]}
+{"at": "2026-06-19T12:31:20Z", "tool": "Write", "summary": "Wrote HelperTest.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/HelperTest.php"]}
+{"at": "2026-06-19T12:31:21Z", "tool": "Shell", "summary": "cd /home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests && ./vendor/bin/phpunit ...", "files": []}
+{"at": "2026-06-19T12:31:42Z", "tool": "Write", "summary": "Wrote NextcloudAPITest.php", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests/src/NextcloudAPITest.php"]}
+{"at": "2026-06-19T12:31:43Z", "tool": "Shell", "summary": "cd /home/beesy/Projetos/Cursor/work/work-nc-whmcs/tests && ./vendor/bin/phpunit ...", "files": []}
+{"at": "2026-06-19T12:32:08Z", "tool": "Write", "summary": "Wrote beesy-pr-security-review.yml", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.github/workflows/beesy-pr-security-review.yml"]}
+{"at": "2026-06-19T12:32:10Z", "tool": "Write", "summary": "Wrote README.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/README.md"]}
+{"at": "2026-06-19T12:32:13Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:14Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:15Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:16Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:22Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:24Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:27Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:28Z", "tool": "Write", "summary": "Wrote ROADMAP.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/docs/ROADMAP.md"]}
+{"at": "2026-06-19T12:32:30Z", "tool": "Write", "summary": "Wrote CHANGELOG.md", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/CHANGELOG.md"]}
+{"at": "2026-06-19T12:32:31Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:32:33Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:32:35Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:32:40Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:32:43Z", "tool": "Write", "summary": "Wrote .cursorsession", "files": ["/home/beesy/Projetos/Cursor/work/work-nc-whmcs/.cursorsession"]}
+{"at": "2026-06-19T12:32:44Z", "tool": "Shell", "summary": "cd /home/beesy/Projetos/Cursor/work/work-nc-whmcs && /usr/bin/git add -A && /usr...", "files": []}
+{"at": "2026-06-19T12:32:51Z", "tool": "Shell", "summary": "cd /home/beesy/Projetos/Cursor/work/work-nc-whmcs && /usr/bin/git reset HEAD .cu...", "files": []}
+{"at": "2026-06-19T12:33:31Z", "tool": "Shell", "summary": "/usr/bin/gh pr merge 4 --repo SoftwareBeesy/work-nc-whmcs --merge && /usr/bin/gi...", "files": []}
