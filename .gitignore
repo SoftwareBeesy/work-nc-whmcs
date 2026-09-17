@@ -17,3 +17,8 @@ Thumbs.db
 
 # Beesy session (local state)
 .cursorsession
+
+# beesy session artifacts
+.cursorsession.lock
+.cursorsession.bak*
+.beesy/runs/
